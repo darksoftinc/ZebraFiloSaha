@@ -4,15 +4,15 @@
 
 # Zebra Filo Saha
 
-**ZT411 filo izleme, tanılama ve saha yönetimi.**  
-Yerel çalışır, Türkçe konuşur, tek tıkla test etiketi basar.
+**Zebra yazıcı filoları için yerel izleme, tanılama ve saha yönetimi.**  
+Yerel altyapıda çalışır; Türkçe arayüz, merkezi durum takibi ve tek tıkla test baskısı sunar.
 
 [![Version](https://img.shields.io/badge/version-0.2.1-0f766e?style=for-the-badge)](https://github.com/darksoftinc/ZebraFiloSaha)
 [![Platform](https://img.shields.io/badge/platform-Windows%2010%2F11-0078D4?style=for-the-badge&logo=windows)](https://github.com/darksoftinc/ZebraFiloSaha)
 [![Electron](https://img.shields.io/badge/Electron-45-47848F?style=for-the-badge&logo=electron)](https://www.electronjs.org/)
 [![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-7-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
-[![Zebra](https://img.shields.io/badge/Zebra-ZT411-000000?style=for-the-badge)](https://www.zebra.com/)
+[![Zebra](https://img.shields.io/badge/Zebra-End%C3%BCstriyel-000000?style=for-the-badge)](https://www.zebra.com/)
 [![Local First](https://img.shields.io/badge/local--first-no%20cloud-14b8a6?style=for-the-badge)](#güvenlik-ve-gizlilik)
 
 [Özellikler](#-özellikler) · [Ekran Görüntüleri](#-ekran-görüntüleri) · [Kurulum](#-kurulum) · [Yazıcı Ekleme](#-yazıcı-ekleme) · [Mimari](#-mimari) · [API](#-erp--rest-api)
@@ -21,47 +21,50 @@ Yerel çalışır, Türkçe konuşur, tek tıkla test etiketi basar.
 
 > [!NOTE]
 > **v0.2.1** · Windows 10/11 · Yerel SQLite · Bulut hesabı gerekmez · Türkçe arayüz  
-> Kurulum paketi depoya konmaz (129 MB); `npm run dist` ile üretilir veya GitHub Releases'e eklenir.
+> Kurulum paketi boyutu nedeniyle kaynak deposuna dahil edilmez. `npm run dist` ile
+> üretilebilir veya GitHub Releases bölümüne eklenebilir.
 
 ---
 
-## 🖨️ Neden Zebra Filo Saha?
+## Genel Bakış
 
-Beş ZT411, üç farklı vardiya, bir sürü “yazıcı yine basmıyor” telefonu… Klasik yöntemde
-her yazıcıya tek tek gidilir, web arayüzüne bakılır, hata kodu akılda tutulmaya çalışılır.
-Zebra Filo Saha bunu tek ekrana taşır:
+Çok sayıda yazıcının bulunduğu üretim ortamlarında arıza tespiti genellikle yazıcı başına
+manuel kontrol gerektirir. Bu yaklaşım duruş süresini uzatır; hata kodlarının tutarsız
+yorumlanmasına ve bakım geçmişinin kaybolmasına neden olur.
 
-- Yazıcıya **tek tıkla** test etiketi gönderir.
-- `~HS` / `~HQES` bayraklarını **Türkçe** hata ve çözüm önerisine çevirir.
-- Etiket, hata, duruş ve **MTBF/MTTR** geçmişini yerelde tutar.
-- Telegram, e-posta ve webhook ile **siz uyurken** haber verir.
-- ERP/WMS için **token korumalı REST API** sunar.
-- Tüm veri sizin bilgisayarınızda kalır; varsayılan olarak bulut yoktur.
+Zebra Filo Saha, bu operasyonları tek bir masaüstü uygulamasında birleştirir:
+
+- Yazıcıya tek tıkla test etiketi gönderir.
+- `~HS` ve `~HQES` bayraklarını Türkçe hata açıklamasına ve çözüm önerisine dönüştürür.
+- Etiket üretimi, hata, duruş ve MTBF/MTTR verilerini yerel olarak saklar.
+- Telegram, e-posta ve webhook kanallarıyla proaktif bildirim gönderir.
+- ERP/WMS sistemleri için token korumalı REST API sunar.
+- Tüm verileri yerel bilgisayarda saklar; varsayılan yapılandırmada bulut bağımlılığı yoktur.
 
 ---
 
-## ✨ Özellikler
+## Özellikler
 
 | Alan | Ne yapar? |
 |---|---|
-| 🖨️ **Canlı filo izleme** | READY / PAUSE / ERROR / OFFLINE, aktif hata ve uyarılar, gecikme, uptime, RAM |
-| 🔍 **Otomatik Zebra keşfi** | Yerel alt ağı tarar; model, seri ve firmware doğrular; tek tek veya topluca ekler |
-| 🏷️ **Janjanlı test etiketi** | Siyah başlık, zebra şerit, QR kod ve Code 128 barkod |
-| 🧰 **Canlı ayar yönetimi** | Darkness, hız, baskı yöntemi, media tipi, genişlik, baskı modu, kafa kapatma, reprint, tear-off, Energy Star |
-| 💾 **Ayar yedeği** | Yedek al, mevcut ayarlarla karşılaştır, geri yükle, tüm yazıcılara şablon uygula |
-| ⬆️ **Firmware** | Mevcut sürüm takibi, yerel `.zpl` seçip yükleme, ilerleme ve geçmiş |
-| 🔔 **Bildirimler** | Telegram bot, SMTP e-posta, JSON webhook; anahtarları siz girersiniz |
-| 🛠️ **Bakım** | Kafa temizliği, platen, media, printhead görevleri; tarih veya etiket eşiği |
-| 📊 **Raporlar** | Etiket üretimi, hata/uyarı, duruş, MTBF/MTTR, çevrimiçi yüzdesi |
-| 📥 **Excel / PDF** | Tek tıkla `.xlsx` ve `.pdf` filo raporu |
-| 🌐 **ERP entegrasyonu** | Yerel REST API + Bearer token + webhook olayları |
-| 🏭 **Çoklu saha** | Yazıcı bazında saha/tesis alanı, dashboard ve rapor filtresi |
-| 🔌 **USB / Windows kuyruğu** | Windows spooler'dan durum okuma ve RAW ZPL gönderme (beta) |
-| 🔐 **Yerel ve şifreli** | SQLite, DPAPI ile şifrelenmiş token/şifre, varsayılan olarak yalnızca localhost API |
+| **Canlı filo izleme** | READY / PAUSE / ERROR / OFFLINE, aktif hata ve uyarılar, gecikme, uptime ve RAM |
+| **Otomatik yazıcı keşfi** | Yerel alt ağı tarar; model, seri ve firmware bilgisini doğrular; toplu ekleme yapar |
+| **Profesyonel test etiketi** | Siyah başlık, zebra şerit motifi, QR kod ve Code 128 barkod |
+| **Canlı ayar yönetimi** | Darkness, hız, baskı yöntemi, media tipi, genişlik, baskı modu, kafa kapatma, reprint, tear-off ve Energy Star |
+| **Ayar yedeği** | Yedek alma, mevcut ayarlarla karşılaştırma, geri yükleme ve tüm yazıcılara şablon uygulama |
+| **Firmware yönetimi** | Mevcut sürüm takibi, yerel `.zpl` dosyası yükleme, ilerleme göstergesi ve geçmiş |
+| **Bildirimler** | Telegram bot, SMTP e-posta ve JSON webhook; anahtarlar kullanıcı tarafından girilir |
+| **Bakım planı** | Kafa temizliği, platen, media ve printhead görevleri; tarih veya etiket eşiği |
+| **Raporlama** | Etiket üretimi, hata/uyarı, duruş, MTBF/MTTR ve çevrimiçi kalma oranı |
+| **Excel / PDF** | Tek tıkla `.xlsx` ve `.pdf` filo raporu |
+| **ERP entegrasyonu** | Yerel REST API, Bearer token ve webhook olayları |
+| **Çoklu saha** | Yazıcı bazında saha/tesis alanı; dashboard ve rapor filtreleri |
+| **USB / Windows kuyruğu** | Windows spooler üzerinden durum okuma ve RAW ZPL gönderme (beta) |
+| **Yerel ve şifreli** | SQLite veritabanı, DPAPI ile şifrelenmiş token/şifre, varsayılan olarak yalnızca localhost API |
 
 ---
 
-## 📸 Ekran Görüntüleri
+## Ekran Görüntüleri
 
 <table>
   <tr>
@@ -92,30 +95,30 @@ Zebra Filo Saha bunu tek ekrana taşır:
     <td width="50%">
       <img src="docs/screenshots/discovery.png" alt="Ağda Ara" />
       <br />
-      <sub><b>Otomatik keşif</b> — alt ağ taraması ve Zebra doğrulama</sub>
+      <sub><b>Otomatik keşif</b> — alt ağ taraması ve yazıcı doğrulama</sub>
     </td>
     <td width="50%">
       <img src="docs/screenshots/settings.png" alt="Ayarlar" />
       <br />
-      <sub><b>Ayarlar</b> — izleme, tema, veri saklama, ERP API</sub>
+      <sub><b>Ayarlar</b> — izleme, tema, veri saklama ve ERP API</sub>
     </td>
   </tr>
 </table>
 
-### 🏷️ Yeni test etiketi
+### Test etiketi
 
 <p align="center">
-  <img src="docs/screenshots/test-label.png" alt="Janjanlı test etiketi" width="72%" />
+  <img src="docs/screenshots/test-label.png" alt="Test etiketi" width="72%" />
 </p>
 
-> Siyah başlık, zebra şerit motifi, QR kod, Code 128 barkod ve düzenli bilgi alanları.
-> Her test baskısı bir etiket tüketir; tek tıkla gönderilir.
+Test etiketi siyah başlık, zebra şerit motifi, QR kod, Code 128 barkod ve düzenli bilgi
+alanlarından oluşur. Her test baskısı bir etiket tüketir ve tek tıkla gönderilir.
 
 ---
 
-## 🚀 Kurulum
+## Kurulum
 
-### Geliştirici olarak
+### Geliştirme ortamı
 
 Gereksinim: **Node.js 22+** ve Windows 10/11.
 
@@ -126,7 +129,7 @@ npm install
 npm run dev
 ```
 
-### Kurulum paketi üretme
+### Kurulum paketi üretimi
 
 ```powershell
 npm run typecheck
@@ -137,29 +140,31 @@ npm run dist
 Çıktı: `release\Zebra Saha-0.2.1-x64.exe`
 
 > [!TIP]
-> Depo yalnızca kaynak kodu içerir. 129 MB'lık kurulum paketi GitHub'ın dosya
-> sınırına yaklaştığı için Releases'e eklenmelidir.
+> Depo yalnızca kaynak kodunu içerir. Kurulum paketi GitHub Releases bölümüne
+> eklenebilir veya yerel olarak `npm run dist` ile üretilebilir.
 
 ### İlk açılış
 
 1. Uygulamayı açın.
-2. **Ağda Ara** veya **Yazıcı Ekle** ile ilk ZT411'i ekleyin.
-3. **Bağlantıyı Test Et** ile model / firmware / durumu doğrulayın.
-4. Kaydedin; ilk sorgu otomatik başlar.
+2. **Ağda Ara** veya **Yazıcı Ekle** ile ilk Zebra yazıcıyı ekleyin.
+3. **Bağlantıyı Test Et** ile model, firmware ve durum bilgisini doğrulayın.
+4. Kaydedin; ilk durum sorgusu otomatik olarak başlar.
 
 ---
 
-## ➕ Yazıcı Ekleme
+## Yazıcı Ekleme
 
 ### Otomatik keşif
 
-1. Üst çubukta **Ağda Ara**.
-2. Doğru alt ağı seçin (Wi-Fi/Ethernet önceliklidir; Tailscale altta görünür).
-3. **Taramayı Başlat**.
-4. Bulunanları tek tek veya **Kalanları ekle** ile topluca ekleyin.
+1. Üst çubukta **Ağda Ara** seçeneğini açın.
+2. Doğru alt ağı seçin. Wi-Fi ve Ethernet arayüzleri önceliklendirilir; Tailscale gibi
+   sanal arayüzler listede sona eklenir.
+3. **Taramayı Başlat** düğmesine basın.
+4. Bulunan yazıcıları tek tek veya **Kalanları ekle** ile topluca ekleyin.
 
-Keşif, 9100 portunu tarar; model/firmware için `~HI`, seri/durum için yazıcının web
-başlığını doğrular. Farklı ağdaysanız alt ağı elle girin: `192.168.1.0/24`.
+Keşif işlemi 9100 portunu tarar; model ve firmware için `~HI`, seri ve durum bilgisi için
+yazıcının web başlığını doğrular. Farklı bir ağdaysanız alt ağ adresini elle
+girebilirsiniz: `192.168.1.0/24`.
 
 ### Elle ekleme
 
@@ -168,73 +173,77 @@ başlığını doğrular. Farklı ağdaysanız alt ağı elle girin: `192.168.1.
 | Ad | Örn. `Üretim Hattı 1` |
 | Bağlantı | Ağ (Ethernet / Wi-Fi) |
 | IP adresi | Örn. `192.168.1.102` |
-| Port | **9100** (Zebra ham baskı) |
+| Port | **9100** (Zebra ham baskı portu) |
 | Saha / konum | Örn. `Merkez Tesis / Paketleme` |
 | Sorgu aralığı | 15–3600 saniye |
 
-USB yazıcı için bağlantı türünü **Windows yazıcı kuyruğu** seçin; kuyruk adını listeden
-seçin. Bu modda durum Windows spooler'dan okunur; SG D ayar yazma ve firmware desteklenmez.
+USB bağlantılı yazıcılar için bağlantı türünü **Windows yazıcı kuyruğu** olarak seçin ve
+kuyruk adını listeden belirleyin. Bu modda durum bilgisi Windows spooler üzerinden
+okunur; SGD ayar yazma ve firmware güncelleme desteklenmez.
 
 ---
 
-## 🔔 Bildirim Altyapısı
+## Bildirim Altyapısı
 
-**Bildirimler** sayfasında üç kanal vardır:
+**Bildirimler** sayfasında üç kanal bulunur:
 
-- **Telegram**: BotFather'dan bot token + chat ID.
-- **E-posta (SMTP)**: sunucu, port, SSL/TLS, kullanıcı, şifre, gönderen, alıcılar.
-- **Webhook**: HTTPS adresi; olaylar JSON olarak POST edilir.
+- **Telegram**: BotFather üzerinden alınan bot token ve chat ID.
+- **E-posta (SMTP)**: sunucu, port, SSL/TLS, kullanıcı, şifre, gönderen ve alıcı bilgileri.
+- **Webhook**: HTTPS adresi; olaylar JSON formatında POST edilir.
 
-Her kanalda **Test Gönder** vardır. Formda boş bırakılan token/şifre alanları mevcut
-kaydı korur. Anahtarlar Windows **DPAPI** ile şifrelenir; arayüze geri dönmez, yalnızca
-“kayıtlı” bilgisi gösterilir.
+Her kanalda **Test Gönder** düğmesi bulunur. Formda boş bırakılan token ve şifre alanları
+mevcut kaydı korur. Anahtarlar Windows **DPAPI** ile şifrelenir; arayüze geri dönmez,
+yalnızca “kayıtlı” bilgisi gösterilir.
 
-Kurallar: hata, uyarı, çevrimdışı ve sorun giderildi. Aynı yazıcı + aynı sorun için
-tekrar aralığı (varsayılan 15 dk) ile mesaj yağmuru engellenir.
+Bildirim kuralları hata, uyarı, çevrimdışı ve sorun giderildi durumlarını kapsar. Aynı
+yazıcı ve aynı sorun için tanımlanan tekrar aralığı (varsayılan 15 dakika) ile yinelenen
+bildirimler engellenir.
 
 ---
 
-## 🧰 Yetkili İşlemler
+## Yetkili İşlemler
 
 Yazıcı detayı → **Yönetim**:
 
 - **Yapılandırma etiketi** (`~WC`) veya özel **ZPL** gönderme.
-- **Ayar yedeği** alma, mevcut ayarlarla karşılaştırma, geri yükleme.
-- **Tümüne Uygula**: bir yedeği/şablonu tüm ağ yazıcılarına uygulama; önce her yazıcı
-  için otomatik yedek alır.
-- **Firmware**: yerel `.zpl` dosyası seçip yükleme; ilerleme ve geçmiş.
+- **Ayar yedeği** alma, mevcut ayarlarla karşılaştırma ve geri yükleme.
+- **Tümüne Uygula**: bir yedeği veya şablonu tüm ağ yazıcılarına uygular; işlem öncesinde
+  her yazıcı için otomatik yedek alır.
+- **Firmware**: yerel `.zpl` dosyası seçilir ve yüklenir; ilerleme ile geçmiş görüntülenir.
 
 Yazıcı detayı → **Ayarlar**:
 
-- Darkness, hız, baskı yöntemi, media tipi, baskı genişliği, baskı modu.
-- Kafa kapatma davranışı, açılışta media, reprint, tear-off, Energy Star.
-- Uygulama öncesi otomatik yedek + onay + denetim kaydı.
-- IP/DHCP güvenlik için salt okunur.
+- Darkness, hız, baskı yöntemi, media tipi, baskı genişliği ve baskı modu.
+- Kafa kapatma davranışı, açılışta media, reprint, tear-off ve Energy Star.
+- Uygulama öncesinde otomatik yedek alınır, kullanıcı onayı istenir ve işlem denetim
+  kaydına eklenir.
+- IP/DHCP ayarları, bağlantı kesilmesini önlemek için salt okunur tutulur.
 
-Tüm işlemler **İşlem Geçmişi**'ne yazılır.
-
----
-
-## 🛠️ Bakım ve Raporlar
-
-- **Bakım**: görev ekleme, tarih/etiket eşiği, tamamlama, silme; gecikmiş ve yaklaşan
-  görev özeti.
-- **Raporlar**: tarih aralığı, saha filtresi, etiket üretimi, hata/uyarı, duruş,
-  MTBF/MTTR, çevrimiçi yüzdesi; Excel ve PDF dışa aktarma.
-
-> MTBF/MTTR değerleri toplanan örnekler ve olay sürelerinden **tahminidir**. Daha isabetli
-> sonuç için uygulamanın düzenli açık kalması ve sorgu aralığının kısa olması gerekir.
+Tüm işlemler **İşlem Geçmişi** ekranına kaydedilir.
 
 ---
 
-## 🧱 Mimari
+## Bakım ve Raporlar
+
+- **Bakım**: görev ekleme, tarih veya etiket eşiği tanımlama, tamamlama ve silme;
+  gecikmiş ve yaklaşan görev özetleri.
+- **Raporlar**: tarih aralığı ve saha filtresi; etiket üretimi, hata/uyarı, duruş,
+  MTBF/MTTR ve çevrimiçi kalma oranı; Excel ve PDF dışa aktarma.
+
+> MTBF/MTTR değerleri, toplanan durum örnekleri ve olay sürelerinden **tahmin** edilir.
+> Daha isabetli sonuçlar için uygulamanın düzenli açık kalması ve sorgu aralığının kısa
+> olması önerilir.
+
+---
+
+## Mimari
 
 ```mermaid
 flowchart LR
   UI["React + Mantine<br/>Masaüstü Arayüz"] -->|IPC| MAIN["Electron Main<br/>Node.js"]
   MAIN --> DB[("SQLite<br/>Yerel")]
-  MAIN -->|"TCP 9100<br/>ZPL / SGD"| Z1["ZT411 #1"]
-  MAIN -->|"TCP 9100"| Z2["ZT411 #N"]
+  MAIN -->|"TCP 9100<br/>ZPL / SGD"| Z1["Zebra Yazıcı #1"]
+  MAIN -->|"TCP 9100"| Z2["Zebra Yazıcı #N"]
   MAIN -->|"HTTP /config.html"| Z1
   MAIN -->|"HTTPS"| TG["Telegram Bot API"]
   MAIN -->|"SMTP"| MAIL["E-posta"]
@@ -247,37 +256,37 @@ flowchart LR
 
 | Yöntem | Kullanım |
 |---|---|
-| `~HS` | Kağıt, pause, kafa açık, ribon, sıcaklık, etiket boyu |
-| `~HQES` | 16 bit hata/uyarı bayrakları |
-| `~HI` / `~HM` | Model, firmware, RAM |
+| `~HS` | Kağıt, pause, kafa açık, ribon, sıcaklık ve etiket boyu |
+| `~HQES` | 16 bit hata ve uyarı bayrakları |
+| `~HI` / `~HM` | Model, firmware ve RAM bilgisi |
 | SGD | `odometer.total_label_count`, `media.speed`, `print.tone`, `ezpl.*`, `device.uptime` |
-| HTTP `/config.html` | Kesin `NONRESET CNTR` sayaçları (erişilebilirse) |
+| HTTP `/config.html` | Erişilebilirse kesin `NONRESET CNTR` sayaçları |
 
-Sorgular yazıcı başına sırayla, kısa timeout'larla yapılır. İlk bağlantı Energy Star /
-uyku modundan dolayı gecikirse bir kez daha denenir.
+Sorgular yazıcı başına sırayla ve kısa zaman aşımı değerleriyle gerçekleştirilir. İlk
+bağlantı Energy Star veya uyku modu nedeniyle gecikirse bir kez daha denenir.
 
 ---
 
-## 🌐 ERP / REST API
+## ERP / REST API
 
 **Ayarlar → ERP / API entegrasyonu**:
 
-- Varsayılan `127.0.0.1:3210`, yalnızca yerel erişim.
-- `0.0.0.0` seçilirse **API token zorunludur**.
-- Token: `Authorization: Bearer <token>` veya `X-Api-Token`.
+- Varsayılan `127.0.0.1:3210`; yalnızca yerel erişim.
+- `0.0.0.0` seçildiğinde **API token zorunludur**.
+- Token, `Authorization: Bearer <token>` veya `X-Api-Token` başlığıyla gönderilir.
 - API üzerinden yazdırma varsayılan olarak **kapalıdır**.
 
 | Metot | Yol | Açıklama |
 |---|---|---|
 | `GET` | `/api/health` | Sağlık kontrolü |
-| `GET` | `/api/printers` | Tüm yazıcılar + son durum |
-| `GET` | `/api/printers/:id` | Tek yazıcı + durum |
-| `POST` | `/api/printers/:id/refresh` | Anlık sorgu |
+| `GET` | `/api/printers` | Tüm yazıcılar ve son durumları |
+| `GET` | `/api/printers/:id` | Tek yazıcı ve durum bilgisi |
+| `POST` | `/api/printers/:id/refresh` | Anlık durum sorgusu |
 | `POST` | `/api/printers/:id/print` | `{"zpl":"^XA...^XZ"}` (izin gerekir) |
-| `GET` | `/api/alerts?active=1` | Aktif/geçmiş olaylar |
+| `GET` | `/api/alerts?active=1` | Aktif ve geçmiş olaylar |
 | `GET` | `/api/reports?from=...&to=...` | Filo raporu |
 
-Örnek:
+Örnek kullanım:
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" http://127.0.0.1:3210/api/printers
@@ -293,7 +302,7 @@ Webhook gövdesi:
 {
   "event": "printer.issue",
   "timestamp": "2026-11-11T11:30:00.000Z",
-  "printer": { "id": 1, "name": "ZT411-01", "host": "192.168.1.102", "site": "Merkez" },
+  "printer": { "id": 1, "name": "Zebra-01", "host": "192.168.1.102", "site": "Merkez" },
   "state": "error",
   "issues": [{ "code": "MEDIA_OUT", "title": "Kağıt / etiket bitti" }]
 }
@@ -301,33 +310,35 @@ Webhook gövdesi:
 
 ---
 
-## 🔐 Güvenlik ve Gizlilik
+## Güvenlik ve Gizlilik
 
 - Veritabanı: `%APPDATA%\Zebra Saha\zebra-saha.db`
-- Log: `%APPDATA%\Zebra Saha\main.log` (5 MB'ta döner)
-- Renderer izole (`contextIsolation`, `nodeIntegration` kapalı).
-- Bildirim/API token ve şifreleri **DPAPI** ile şifrelenir.
-- API varsayılan olarak yalnızca `127.0.0.1`; yerel ağa açarken token zorunlu.
-- FTP kullanılmaz. Test edilen yazıcıda anonim FTP açıktı; üretimde kapatılmalıdır.
-- Kurulum imzasızdır; Windows SmartScreen uyarabilir.
-- Bu uygulama hiçbir veriyi kendi sunucusuna göndermez. Bildirim trafiği sizin
-  seçtiğiniz Telegram/SMTP/webhook adreslerine gider.
+- Log dosyası: `%APPDATA%\Zebra Saha\main.log` (5 MB boyutunda döndürülür)
+- Renderer izole çalışır (`contextIsolation` açık, `nodeIntegration` kapalı).
+- Bildirim ve API token/şifreleri **DPAPI** ile şifrelenir.
+- API varsayılan olarak yalnızca `127.0.0.1` adresinde dinlenir; yerel ağa açılırken
+  token kullanımı zorunludur.
+- FTP kullanılmaz. Test edilen yazıcıda anonim FTP açıktı; üretim ortamlarında
+  kapatılması önerilir.
+- Kurulum paketi imzasızdır; Windows SmartScreen uyarısı gösterebilir.
+- Uygulama, verileri kendi sunucusuna göndermez. Bildirim trafiği yalnızca kullanıcı
+  tarafından tanımlanan Telegram, SMTP veya webhook adreslerine iletilir.
 
 ---
 
-## 🗂️ Proje Yapısı
+## Proje Yapısı
 
 ```text
 zebra-saha/
 ├─ src/
 │  ├─ main/                 Electron ana süreç
 │  │  ├─ db.ts              SQLite şeması ve sorgular
-│  │  ├─ printer/           ZPL/SGD istemcisi, hata sözlüğü
+│  │  ├─ printer/           ZPL/SGD istemcisi ve hata sözlüğü
 │  │  ├─ discovery.ts       Alt ağ taraması
-│  │  ├─ management.ts      Test baskı, ayar, firmware, Windows spooler
+│  │  ├─ management.ts      Test baskı, ayar, firmware ve Windows spooler
 │  │  ├─ notifications.ts   Telegram / SMTP / webhook
 │  │  ├─ api-server.ts      ERP REST API
-│  │  ├─ reports.ts         MTBF/MTTR + Excel/PDF
+│  │  ├─ reports.ts         MTBF/MTTR ve Excel/PDF
 │  │  └─ poller.ts          Zamanlayıcı ve durum geçmişi
 │  ├─ preload/              Güvenli IPC köprüsü
 │  ├─ renderer/             React + Mantine arayüz
@@ -341,7 +352,7 @@ zebra-saha/
 
 ---
 
-## 🧪 Geliştirme Komutları
+## Geliştirme Komutları
 
 ```powershell
 npm run typecheck      # TypeScript kontrolü
@@ -351,60 +362,66 @@ npm run dev            # Geliştirme modu (Vite + Electron)
 ```
 
 > [!NOTE]
-> Bu ortamda npm 12'nin optional-dependency hatası nedeniyle Electron binary'si
-> otomatik indirilemedi. Gerekirse npm 11 kullanın veya Electron `win32-x64` zip'ini
-> `node_modules/electron/dist` içine açıp `path.txt` dosyasına `electron.exe` yazın.
+> Bu ortamda npm 12’nin isteğe bağlı bağımlılık hatası nedeniyle Electron binary’si
+> otomatik indirilemedi. Gerekirse npm 11 kullanın veya Electron `win32-x64` arşivini
+> `node_modules/electron/dist` dizinine açıp `path.txt` dosyasına `electron.exe` yazın.
 
 ---
 
-## 📝 Sürüm Notları
+## Sürüm Notları
 
 ### v0.2.1
-- Yazıcı detayındaki **Ayarlar** sekmesi düzenlenebilir; ayarlar tek düğmeyle uygulanır.
-- Üstteki kesikli şerit kaldırıldı; üst sol köşedeki “ZT411” alt yazısı kaldırıldı.
-- **Bildirimler** ve **Ayarlar** sayfalarında aşağı kaydırma düzeltildi.
-- Özel yazıcı/zebra temalı uygulama ve masaüstü ikonu eklendi.
-- Test etiketi yenilendi: siyah başlık, zebra şerit, QR kod ve Code 128 barkod.
+- Yazıcı detayındaki **Ayarlar** sekmesi düzenlenebilir hale getirildi; ayarlar tek
+  düğmeyle yazıcıya uygulanır.
+- Uygulama üstündeki kesikli şerit kaldırıldı; üst sol köşedeki model alt yazısı
+  kaldırıldı.
+- **Bildirimler** ve **Ayarlar** sayfalarındaki aşağı kaydırma sorunu giderildi.
+- Kurumsal yazıcı temasına sahip uygulama ve masaüstü ikonu eklendi.
+- Test etiketi yenilendi: siyah başlık, zebra şerit motifi, QR kod ve Code 128 barkod.
 
 ### v0.2.0
-- Telegram / e-posta / webhook bildirimleri.
-- Otomatik Zebra keşfi.
+- Telegram, e-posta ve webhook bildirimleri.
+- Otomatik yazıcı keşfi.
 - Test baskı ve ZPL gönderme.
-- Config yedeği, diff, geri yükleme, şablon.
-- Firmware yükleme ve geçmiş.
-- Bakım görevleri, raporlar, Excel/PDF.
-- ERP REST API + token, çoklu saha, USB/Windows kuyruğu.
+- Config yedeği, karşılaştırma, geri yükleme ve şablon uygulama.
+- Firmware yükleme ve geçmiş takibi.
+- Bakım görevleri, raporlar, Excel/PDF çıktıları.
+- ERP REST API ve token doğrulama.
+- Çoklu saha ve USB/Windows kuyruğu desteği.
 
 ### v0.1.0
 - İlk canlı izleme, hata sözlüğü, sayaçlar, geçmiş ve tanılama paketi.
 
 ---
 
-## ⚠️ Bilinen Sınırlar
+## Bilinen Sınırlar
 
-- Kurulum paketi **imzasızdır**; SmartScreen uyarabilir.
-- Firmware ve config geri yükleme canlı üretimde dikkatle test edilmelidir.
-- USB/Windows kuyruğu desteği **beta**; fiziksel USB yazıcıda RAW baskı test edilmedi.
-- Windows kuyruğunda SG D ayar yazma/firmware desteklenmez.
-- Rapor MTBF/MTTR değerleri tahminidir.
-- Zebra firmware dosyası otomatik indirilmez; yerel `.zpl` seçilir.
+- Kurulum paketi **imzasızdır**; Windows SmartScreen uyarısı gösterebilir.
+- Firmware ve config geri yükleme işlemleri canlı üretim ortamlarında dikkatle test
+  edilmelidir.
+- USB/Windows kuyruğu desteği **beta** aşamasındadır; fiziksel USB yazıcıda RAW baskı
+  testi tamamlanmamıştır.
+- Windows yazıcı kuyruğunda SGD ayar yazma ve firmware güncelleme desteklenmez.
+- Raporlardaki MTBF/MTTR değerleri tahminidir.
+- Zebra firmware dosyası otomatik indirilmez; yerel `.zpl` dosyası seçilir.
 
 ---
 
-## 🤝 Katkı
+## Katkı
 
-1. Fork'layın.
-2. Özellik dalı açın: `git checkout -b feature/yeni-ozellik`.
-3. Değişiklikleri yapın; `npm run typecheck` ve `npm run build` çalıştırın.
+1. Depoyu fork’layın.
+2. Özellik dalı oluşturun: `git checkout -b feature/yeni-ozellik`.
+3. Değişiklikleri tamamlayın; `npm run typecheck` ve `npm run build` komutlarını
+   çalıştırın.
 4. Pull request açın.
 
-Hata bildirimi ve öneriler için **GitHub Issues** kullanılabilir.
+Hata bildirimleri ve öneriler için **GitHub Issues** bölümü kullanılabilir.
 
 ---
 
 <div align="center">
 
-**Zebra Filo Saha** — ZT411 filoları için yerel, Türkçe ve biraz janjanlı saha konsolu.
+**Zebra Filo Saha** — Zebra yazıcı filoları için yerel ve Türkçe saha konsolu.
 
 <sub>darksoftinc · 2026</sub>
 
