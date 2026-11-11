@@ -19,11 +19,32 @@ body {
 }
 
 .app-header {
-  position: relative;
+  --app-header-text: #f8fafc;
+  --app-header-muted: #94a3b8;
+  color: var(--app-header-text);
   background:
     radial-gradient(circle at 12% -20%, rgba(20, 184, 166, 0.22), transparent 38%),
     linear-gradient(100deg, #080b0f 0%, #10161d 55%, #0b1117 100%);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.app-header .mantine-Text-root {
+  color: var(--app-header-text);
+}
+
+.app-header .app-header-subtitle {
+  color: var(--app-header-muted);
+}
+
+[data-mantine-color-scheme='light'] .app-header {
+  --app-header-text: #0f172a;
+  --app-header-muted: #64748b;
+  color: var(--app-header-text);
+  background:
+    radial-gradient(circle at 12% -20%, rgba(20, 184, 166, 0.12), transparent 38%),
+    linear-gradient(100deg, #ffffff 0%, #f8fafc 55%, #ecfdf5 100%);
+  border-bottom: 1px solid #dbe4ea;
+  box-shadow: 0 1px 0 rgba(15, 23, 42, 0.03);
 }
 
 .nav-item {

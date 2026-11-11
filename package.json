@@ -1,7 +1,7 @@
 {
   "name": "zebra-saha",
   "version": "0.2.1",
-  "description": "Zebra ZT411 saha tanilama, filo yonetimi ve bildirim konsolu",
+  "description": "Zebra yazici saha tanilama, filo yonetimi ve bildirim konsolu",
   "main": "./out/main/index.js",
   "author": "Zebra Saha",
   "license": "UNLICENSED",

@@ -373,8 +373,9 @@ Authorization: Bearer <API_TOKEN>`}
         )}
         <Divider my="md" />
         <Text size="xs" c="dimmed">
-          Zebra Saha — ZT411 saha tanılama ve filo konsolu. Durum sorguları salt okunurdur;
-          yazdırma, ayar ve firmware işlemleri yalnızca onay verdiğinizde çalışır.
+          Zebra Saha — endüstriyel Zebra yazıcılar için saha tanılama ve filo konsolu. Durum
+          sorguları salt okunurdur; yazdırma, ayar ve firmware işlemleri yalnızca onay
+          verdiğinizde çalışır.
         </Text>
       </Paper>
     </Stack>

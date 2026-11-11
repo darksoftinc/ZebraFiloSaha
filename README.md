@@ -376,6 +376,8 @@ npm run dev            # Geliştirme modu (Vite + Electron)
 - Uygulama üstündeki kesikli şerit kaldırıldı; üst sol köşedeki model alt yazısı
   kaldırıldı.
 - **Bildirimler** ve **Ayarlar** sayfalarındaki aşağı kaydırma sorunu giderildi.
+- Açık tema için header paleti yenilendi; header aşağı kaydırma sırasında sabit kalacak
+  şekilde düzeltildi.
 - Kurumsal yazıcı temasına sahip uygulama ve masaüstü ikonu eklendi.
 - Test etiketi yenilendi: siyah başlık, zebra şerit motifi, QR kod ve Code 128 barkod.
 

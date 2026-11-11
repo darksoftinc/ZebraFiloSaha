@@ -100,7 +100,7 @@ export default function App(): React.ReactElement {
               />
               <Box>
                 <Text fw={700} size="lg" lh={1.2}>Zebra Saha</Text>
-                <Text size="xs" c="dimmed">Filo Konsolu</Text>
+                <Text size="xs" className="app-header-subtitle">Filo Konsolu</Text>
               </Box>
             </Group>
 
