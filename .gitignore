@@ -1,0 +1,14 @@
+node_modules/
+out/
+release/
+dist/
+*.log
+*.db
+*.db-shm
+*.db-wal
+.env
+.env.*
+.DS_Store
+Thumbs.db
+build/icon-[0-9]*.png
+*.tmp
